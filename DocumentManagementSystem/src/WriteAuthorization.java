@@ -1,2 +1,2 @@
-public class WriteAuthorization {
+public class WriteAuthorization extends Authorization {
 }

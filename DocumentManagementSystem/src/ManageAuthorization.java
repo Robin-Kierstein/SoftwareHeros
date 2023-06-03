@@ -1,2 +1,2 @@
-public class ManageAuthorization {
+public class ManageAuthorization extends Authorization {
 }

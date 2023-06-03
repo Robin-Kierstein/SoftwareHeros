@@ -1,2 +1,2 @@
-public class ReadAuthorization {
+public class ReadAuthorization extends Authorization {
 }
