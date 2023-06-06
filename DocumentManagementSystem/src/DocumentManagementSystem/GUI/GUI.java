@@ -1,12 +1,18 @@
 package DocumentManagementSystem.GUI;
 
 import DocumentManagementSystem.Datenbank.Document;
-import DocumentManagementSystem.Datenbank.DocumentManagementInterface;
+import DocumentManagementSystem.DocumentAuthorization.DocumentManagementInterface;
 
 import javax.swing.*;
 import java.util.ArrayList;
 
 public class GUI implements UserInterface, DocumentManagementInterface {
+
+    private DocumentManagementInterface docmanager;
+
+    public GUI(DocumentManagementInterface docmanager) {
+        this.docmanager = docmanager;
+    }
 
     @Override
     public String showMenu() {
@@ -38,6 +44,8 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
                         case 3:
                             JOptionPane.showMessageDialog(null, "Das ist der Fall Upload");
+                            //TODO: Pfad einfügen
+                            docmanager.saveUploadDocument("Hier einen Pfad einfügen");
                             status = true;
                             status2 = true;
                             break;
@@ -78,6 +86,11 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     @Override
     public Document selectSavedDocument() {
         return null;
+    }
+
+    @Override
+    public boolean uploadDocument(String pfad) {
+        return false;
     }
 
     @Override

@@ -1,10 +1,12 @@
-package DocumentManagementSystem.Datenbank;
+package DocumentManagementSystem.DocumentAuthorization;
 
 import DocumentManagementSystem.Datenbank.Document;
 
 import java.util.ArrayList;
 
 public interface DocumentManagementInterface {
+    boolean uploadDocument(String pfad);
+
     public boolean saveUploadDocument(String pfad);
     public String searchThroughDocument();
     public ArrayList<Document> createSearchList();

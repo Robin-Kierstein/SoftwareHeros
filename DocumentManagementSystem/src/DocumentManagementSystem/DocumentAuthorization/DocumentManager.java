@@ -1,36 +1,30 @@
-package DocumentManagementSystem.Datenbank;
+package DocumentManagementSystem.DocumentAuthorization;
 
-import DocumentManagementSystem.DocumentAuthorization.DocumentManagementInterface;
+import DocumentManagementSystem.Datenbank.Document;
+import DocumentManagementSystem.Datenbank.DocumentDatabase;
+import DocumentManagementSystem.Datenbank.DocumentDatabaseInterface;
 
-import java.io.File;
 import java.util.ArrayList;
 
-public class Document implements DocumentManagementInterface {
-    private File file;
-    private String name;
+public class DocumentManager implements DocumentManagementInterface {
 
-    public Document(File file) {
-        this.file = file;
-        this.name = name;
-    }
+    private DocumentDatabaseInterface docdatabase = new DocumentDatabase();
 
-    public File getFile() {
-        return file;
-    }
+        @Override
+        public boolean uploadDocument(String pfad) {
+            return false;
+        }
 
-    public void setFile(File file) {
-        this.file = file;
-    }
 
-    @Override
-    public boolean uploadDocument(String pfad) {
-        return false;
-    }
 
     @Override
     public boolean saveUploadDocument(String pfad) {
-        return false;
+        if (pfad == null) {
+            return false;
+        }
+        return docdatabase.uploadDocument(pfad);
     }
+
 
     @Override
     public String searchThroughDocument() {
