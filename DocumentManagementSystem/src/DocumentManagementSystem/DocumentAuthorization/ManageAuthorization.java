@@ -1,4 +1,8 @@
-public class WriteAuthorization extends Authorization {
+package DocumentManagementSystem.DocumentAuthorization;
+
+import DocumentManagementSystem.DocumentAuthorization.Authorization;
+
+public class ManageAuthorization extends Authorization {
     @Override
     public String requestViewingRights() {
         return null;

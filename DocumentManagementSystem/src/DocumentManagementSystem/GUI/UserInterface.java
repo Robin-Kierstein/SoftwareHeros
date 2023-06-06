@@ -1,3 +1,7 @@
+package DocumentManagementSystem.GUI;
+
+import DocumentManagementSystem.Datenbank.Document;
+
 public interface UserInterface {
 
     public String showMenu();

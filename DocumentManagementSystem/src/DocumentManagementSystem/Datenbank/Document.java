@@ -1,11 +1,15 @@
+package DocumentManagementSystem.Datenbank;
+
 import java.io.File;
 import java.util.ArrayList;
 
 public class Document implements DocumentManagementInterface {
     private File file;
+    private String name;
 
     public Document(File file) {
         this.file = file;
+        this.name = name;
     }
 
     public File getFile() {

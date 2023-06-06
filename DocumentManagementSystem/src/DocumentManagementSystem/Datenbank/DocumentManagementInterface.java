@@ -1,3 +1,7 @@
+package DocumentManagementSystem.Datenbank;
+
+import DocumentManagementSystem.Datenbank.Document;
+
 import java.util.ArrayList;
 
 public interface DocumentManagementInterface {

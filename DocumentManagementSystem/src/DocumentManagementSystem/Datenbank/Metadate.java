@@ -1,3 +1,5 @@
+package DocumentManagementSystem.Datenbank;
+
 public class Metadate {
     private String text;
     private int id;

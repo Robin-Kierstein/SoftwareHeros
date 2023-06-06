@@ -1,3 +1,5 @@
+package DocumentManagementSystem.DocumentAuthorization;
+
 public interface ManageAuthorizationInterface {
     public String requestViewingRights();
     public boolean showRequestResult();

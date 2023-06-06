@@ -1,3 +1,5 @@
+package DocumentManagementSystem.DocumentAuthorization;
+
 public abstract class Authorization implements ManageAuthorizationInterface {
     private String type;
 
