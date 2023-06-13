@@ -50,11 +50,11 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                             status2 = true;
                             break;
                     }
-                } while (status != true);
+                } while (!status);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 3 eingeben");
             }
-        } while (status2 != true);
+        } while (!status2);
     return null;
     }
 

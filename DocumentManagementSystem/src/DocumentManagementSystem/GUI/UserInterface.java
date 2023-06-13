@@ -4,12 +4,12 @@ import DocumentManagementSystem.Datenbank.Document;
 
 public interface UserInterface {
 
-    public String showMenu();
-    public String requestUploadAuthorization();
-    public String chooseUploadDocument(String pfad);
-    public boolean confirmUpload();
-    public String resultMessage();
-    public String getSearchInput();
-    public Document selectSavedDocument();
+    String showMenu();
+    String requestUploadAuthorization();
+    String chooseUploadDocument(String pfad);
+    boolean confirmUpload();
+    String resultMessage();
+    String getSearchInput();
+    Document selectSavedDocument();
 
 }

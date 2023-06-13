@@ -11,7 +11,7 @@ public class Document implements DocumentManagementInterface {
 
     public Document(File file) {
         this.file = file;
-        this.name = name;
+        name = name;
     }
 
     public File getFile() {

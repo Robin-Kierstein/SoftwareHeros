@@ -1,9 +1,9 @@
 package DocumentManagementSystem.DocumentAuthorization;
 
 public interface ManageAuthorizationInterface {
-    public String requestViewingRights();
-    public boolean showRequestResult();
-    public boolean addAuthorization();
-    public boolean removeAuthorization();
-    public String resultAuthorizationMessage();
+    String requestViewingRights();
+    boolean showRequestResult();
+    boolean addAuthorization();
+    boolean removeAuthorization();
+    String resultAuthorizationMessage();
 }
