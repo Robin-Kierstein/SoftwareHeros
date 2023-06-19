@@ -15,46 +15,56 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     }
 
     @Override
+    //TODO: Weitere Menü Auswahlmöglichkeiten hinzufügen
     public String showMenu() {
-        int choice = 0;
+        int auswahl = 0;
 
-        boolean status = false;
-        boolean status2 = false;
+        boolean inputKontrolle = false;
+        boolean inputKontrolle2 = false;
 
         do {
 
             try {
 
                 do {
-                    String input = JOptionPane.showInputDialog("Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n");
-                    choice = Integer.parseInt(input);
+                    String input = JOptionPane.showInputDialog("Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n 4. Menü verlassen");
+                    auswahl = Integer.parseInt(input);
 
-                    switch (choice) {
+                    switch (auswahl) {
                         case 1:
                             JOptionPane.showMessageDialog(null, "Das ist der Fall registrieren");
-                            status = true;
-                            status2 = true;
+                            //TODO: Regestriervorgang programmieren
+                            inputKontrolle = true;
+                            inputKontrolle2 = true;
                             break;
 
                         case 2:
                             JOptionPane.showMessageDialog(null, "Das ist der Fall Anmelden");
-                            status = true;
-                            status2 = true;
+                            //TODO: Anmeldung programmieren
+                            inputKontrolle = true;
+                            inputKontrolle2 = true;
                             break;
 
                         case 3:
                             JOptionPane.showMessageDialog(null, "Das ist der Fall Upload");
                             //TODO: Pfad einfügen
                             docmanager.saveUploadDocument("Hier einen Pfad einfügen");
-                            status = true;
-                            status2 = true;
+                            inputKontrolle = true;
+                            inputKontrolle2 = true;
                             break;
+
+                        case 4:
+                            inputKontrolle = true;
+                            inputKontrolle2 = true;
+
+                        default:
+                            JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 4 eingeben");
                     }
-                } while (!status);
+                } while (!inputKontrolle);
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 3 eingeben");
+                JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 4 eingeben");
             }
-        } while (!status2);
+        } while (!inputKontrolle2);
     return null;
     }
 
