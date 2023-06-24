@@ -4,7 +4,7 @@ import DocumentManagementSystem.Datenbank.Document;
 
 public interface UserInterface {
 
-    String showMenu();
+    void showMenu();
     String requestUploadAuthorization();
     String chooseUploadDocument(String pfad);
     boolean confirmUpload();

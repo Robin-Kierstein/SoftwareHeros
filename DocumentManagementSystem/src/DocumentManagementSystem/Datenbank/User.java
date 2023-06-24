@@ -1,29 +1,35 @@
 package DocumentManagementSystem.Datenbank;
 
-import DocumentManagementSystem.Datenbank.Document;
 import DocumentManagementSystem.DocumentAuthorization.Authorization;
 import DocumentManagementSystem.GUI.UserInterface;
 
-import javax.swing.*;
 import java.util.List;
 
 public class User implements UserInterface {
-    private String name;
+    private String benutzername;
+    private String passwort;
     private int id;
     private List<Authorization> authorization;
 
-    public User(String name, int id, List<Authorization> authorization) {
-        this.name = name;
-        this.id = id;
-        this.authorization = authorization;
+    public User(String name, String passwort) {
+        this.benutzername = name;
+        this.passwort = passwort;
     }
 
-    public String getName() {
-        return name;
+    public String getBenutzername() {
+        return benutzername;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBenutzername(String benutzername) {
+        this.benutzername = benutzername;
+    }
+
+    public String getPasswort() {
+        return passwort;
+    }
+
+    public void setPasswort(String passwort) {
+        this.passwort = passwort;
     }
 
     public int getId() {
@@ -42,50 +48,10 @@ public class User implements UserInterface {
         this.authorization = authorization;
     }
 
-    public static void menu(){
-        int choice = 0;
-
-        boolean status = false;
-        boolean status2 = false;
-
-        do {
-
-            try {
-
-                do {
-                    String input = JOptionPane.showInputDialog("Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n");
-                    choice = Integer.parseInt(input);
-
-                    switch (choice) {
-                        case 1:
-                            JOptionPane.showMessageDialog(null, "Das ist der Fall registrieren");
-                            status = true;
-                            status2 = true;
-                            break;
-
-                        case 2:
-                            JOptionPane.showMessageDialog(null, "Das ist der Fall Anmelden");
-                            status = true;
-                            status2 = true;
-                            break;
-
-                        case 3:
-                            JOptionPane.showMessageDialog(null, "Das ist der Fall Upload");
-                            status = true;
-                            status2 = true;
-                            break;
-                    }
-                } while (!status);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 3 eingeben");
-            }
-        } while (!status2);
-    }
-
 
     @Override
-    public String showMenu() {
-        return null;
+    public void showMenu() {
+
     }
 
     @Override

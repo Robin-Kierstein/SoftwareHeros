@@ -1,6 +1,7 @@
 package DocumentManagementSystem.GUI;
 
 import DocumentManagementSystem.Datenbank.Document;
+import DocumentManagementSystem.Datenbank.UserDatabase;
 import DocumentManagementSystem.DocumentAuthorization.DocumentManagementInterface;
 
 import javax.swing.*;
@@ -16,11 +17,11 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
     @Override
     //TODO: Weitere Menü Auswahlmöglichkeiten hinzufügen
-    public String showMenu() {
-        int auswahl = 0;
+    public void showMenu() {
+        int choice = 0;
 
-        boolean inputKontrolle = false;
-        boolean inputKontrolle2 = false;
+        boolean inputIsValidNumber = false;
+        boolean inputIsNumber = false;
 
         do {
 
@@ -28,44 +29,41 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
                 do {
                     String input = JOptionPane.showInputDialog("Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n 4. Menü verlassen");
-                    auswahl = Integer.parseInt(input);
+                    choice = Integer.parseInt(input);
 
-                    switch (auswahl) {
+                    switch (choice) {
                         case 1:
-                            JOptionPane.showMessageDialog(null, "Das ist der Fall registrieren");
-                            //TODO: Regestriervorgang programmieren
-                            inputKontrolle = true;
-                            inputKontrolle2 = true;
+                            UserDatabase.register();
+                            inputIsNumber = true;
                             break;
 
                         case 2:
-                            JOptionPane.showMessageDialog(null, "Das ist der Fall Anmelden");
-                            //TODO: Anmeldung programmieren
-                            inputKontrolle = true;
-                            inputKontrolle2 = true;
+                            UserDatabase.login();
+                            inputIsNumber = true;
                             break;
 
                         case 3:
-                            JOptionPane.showMessageDialog(null, "Das ist der Fall Upload");
-                            //TODO: Pfad einfügen
-                            docmanager.saveUploadDocument("Hier einen Pfad einfügen");
-                            inputKontrolle = true;
-                            inputKontrolle2 = true;
+                            if (!UserDatabase.isLoggedIn()){
+                                JOptionPane.showMessageDialog(null,"Bitte erst einloggen!");
+                            }
+                            //TODO: Upload ausprogrammieren
+                            //docmanager.saveUploadDocument("Hier einen Pfad einfügen");
+                            inputIsNumber = true;
                             break;
 
                         case 4:
-                            inputKontrolle = true;
-                            inputKontrolle2 = true;
+                            inputIsValidNumber = true;
+                            inputIsNumber = true;
+                            break;
 
                         default:
                             JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 4 eingeben");
                     }
-                } while (!inputKontrolle);
+                } while (!inputIsValidNumber);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 4 eingeben");
             }
-        } while (!inputKontrolle2);
-    return null;
+        } while (!inputIsNumber);
     }
 
     @Override
