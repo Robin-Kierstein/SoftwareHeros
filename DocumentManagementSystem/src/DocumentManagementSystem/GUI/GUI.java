@@ -27,8 +27,12 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
             try {
 
-                do {
-                    String input = JOptionPane.showInputDialog("Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n 4. Menü verlassen");
+               do {
+                    String input = JOptionPane.showInputDialog(null,"Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n 4. Menü verlassen","Menü",JOptionPane.OK_CANCEL_OPTION);
+                        //Cancel Option
+                        if (input == null){
+                            return;
+                        }
                     choice = Integer.parseInt(input);
 
                     switch (choice) {
@@ -54,7 +58,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                         case 4:
                             inputIsValidNumber = true;
                             inputIsNumber = true;
-                            break;
+                            return;
 
                         default:
                             JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 4 eingeben");
