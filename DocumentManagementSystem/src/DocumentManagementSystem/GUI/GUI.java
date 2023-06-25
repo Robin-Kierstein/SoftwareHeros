@@ -155,10 +155,10 @@ public class GUI implements UserInterface, DocumentManagementInterface {
         try {
 
             // Erstellt ein neues File-Objekt an dem gewünschten Pfad
-            File outputFile = new File("DocumentManagementSystem/SaveFile"); // Hier geben wir den Namen der neuen Datei an
+            File outputFile = new File("DocumentManagementSystem/SaveFile");
 
             // Für den Test erstellen wir eine temporäre "inputFile"
-            File inputFile = new File(pfad); //Geben den genauen Pfad zu unserer Testdatei an
+            File inputFile = new File(pfad);
 
             // Wenn die Datei bereits existiert löschen wir sie
             if(outputFile.exists()){
