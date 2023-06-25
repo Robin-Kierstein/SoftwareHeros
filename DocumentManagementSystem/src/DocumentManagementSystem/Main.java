@@ -7,6 +7,8 @@ public class Main {
     public static void main(String[] args) {
         DocumentManager docmanger = new DocumentManager();
         GUI ui = new GUI(docmanger);
-        ui.showMenu();
+        //ui.showMenu();
+
+        ui.saveUploadDocument("C:\\Users\\Furka\\Desktop\\abc.txt");
     }
 }
