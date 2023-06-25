@@ -9,6 +9,9 @@ public interface UserInterface {
     String chooseUploadDocument(String pfad);
     boolean confirmUpload();
     String resultMessage();
+
+    String docTypeCheckMessage();
+
     String getSearchInput();
     Document selectSavedDocument();
 

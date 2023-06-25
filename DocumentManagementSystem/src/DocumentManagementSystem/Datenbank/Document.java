@@ -33,6 +33,11 @@ public class Document implements DocumentManagementInterface {
     }
 
     @Override
+    public boolean docTypeCheck() {
+        return false;
+    }
+
+    @Override
     public String searchThroughDocument() {
         return null;
     }

@@ -49,9 +49,13 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                         case 3:
                             if (!UserDatabase.isLoggedIn()){
                                 JOptionPane.showMessageDialog(null,"Bitte erst einloggen!");
+                            }else {
+                                //TODO: Upload ausprogrammieren
+                                //docmanager.saveUploadDocument("Hier einen Pfad einfügen");
+                                docTypeCheckMessage();
+                                resultMessage();
                             }
-                            //TODO: Upload ausprogrammieren
-                            //docmanager.saveUploadDocument("Hier einen Pfad einfügen");
+
                             inputIsNumber = true;
                             break;
 
@@ -86,9 +90,30 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     }
 
     @Override
-    public String resultMessage() {
+    public String docTypeCheckMessage(){ //Message an User wenn Datei Typ falsch
+
+        if (docmanager.docTypeCheck() == false){
+            JOptionPane.showMessageDialog(null, "Unzulässiger Datei Typ");
+        }else{
+            JOptionPane.showMessageDialog(null, "Zulässiger Datei Typ");
+        }
         return null;
     }
+
+    @Override
+    public String resultMessage() { //Message an User ob Upload erfolgreich
+
+        if (docmanager.saveUploadDocument("") != false) {
+            JOptionPane.showMessageDialog(null, "Upload erfolgreich");
+        } else if (docmanager.saveUploadDocument("") == false) {
+            JOptionPane.showMessageDialog(null, "Upload nicht erfolgreich");
+            return null;
+        }
+
+        return null;
+    }
+
+
 
     @Override
     public String getSearchInput() {
@@ -107,6 +132,11 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
     @Override
     public boolean saveUploadDocument(String pfad) {
+        return false;
+    }
+
+    @Override
+    public boolean docTypeCheck() {
         return false;
     }
 

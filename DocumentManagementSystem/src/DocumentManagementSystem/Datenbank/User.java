@@ -75,6 +75,11 @@ public class User implements UserInterface {
     }
 
     @Override
+    public String docTypeCheckMessage() {
+        return null;
+    }
+
+    @Override
     public String getSearchInput() {
         return null;
     }
