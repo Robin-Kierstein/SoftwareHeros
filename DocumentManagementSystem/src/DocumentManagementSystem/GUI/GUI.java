@@ -3,6 +3,7 @@ package DocumentManagementSystem.GUI;
 import DocumentManagementSystem.Datenbank.Document;
 import DocumentManagementSystem.Datenbank.UserDatabase;
 import DocumentManagementSystem.DocumentAuthorization.DocumentManagementInterface;
+import DocumentManagementSystem.DocumentAuthorization.DocumentManager;
 
 import javax.swing.*;
 import java.io.File;
@@ -22,6 +23,9 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     @Override
     //TODO: Weitere Menü Auswahlmöglichkeiten hinzufügen
     public void showMenu() {
+        DocumentManager docmanger = new DocumentManager();
+        GUI ui = new GUI(docmanger);
+        String pfad = "";
         int choice = 0;
 
         boolean inputIsValidNumber = false;
@@ -55,8 +59,11 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                                 JOptionPane.showMessageDialog(null,"Bitte erst einloggen!");
                             }else {
                                 //TODO: Upload ausprogrammieren
+                                pfad = JOptionPane.showInputDialog("Bitte Pfad einfügen");
                                 //docmanager.saveUploadDocument("Hier einen Pfad einfügen");
-                                docTypeCheckMessage();
+                                //docTypeCheckMessage();
+                                ui.chooseUploadDocument(pfad);
+                                ui.saveUploadDocument(pfad);
                                 resultMessage();
                             }
 
@@ -110,9 +117,9 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     }
 
     @Override
-    public String docTypeCheckMessage(){ //Message an User wenn Datei Typ falsch
+    public String docTypeCheckMessage(String pfad){ //Message an User wenn Datei Typ falsch
 
-        if (docmanager.docTypeCheck() == false){
+        if (docmanager.docTypeCheck(pfad) == false){
             JOptionPane.showMessageDialog(null, "Unzulässiger Datei Typ");
         }else{
             JOptionPane.showMessageDialog(null, "Zulässiger Datei Typ");
@@ -184,7 +191,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     }
 
     @Override
-    public boolean docTypeCheck() {
+    public boolean docTypeCheck(String pfad) {
         return false;
     }
 

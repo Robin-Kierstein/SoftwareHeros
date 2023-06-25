@@ -27,9 +27,8 @@ public class DocumentManager implements DocumentManagementInterface {
     }
 
     @Override
-    public boolean docTypeCheck(){ //Checked ob Datei Typ zulässig
+    public boolean docTypeCheck(String pfad){ //Checked ob Datei Typ zulässig
 
-        String pfad = String.valueOf(saveUploadDocument(""));
         boolean typecheck;
 
 

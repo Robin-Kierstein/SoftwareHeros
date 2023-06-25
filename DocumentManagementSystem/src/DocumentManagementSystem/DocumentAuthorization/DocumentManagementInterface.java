@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public interface DocumentManagementInterface {
     boolean uploadDocument(String pfad);
     public boolean saveUploadDocument(String pfad);
-    boolean docTypeCheck();
+    boolean docTypeCheck(String pfad);
     public String searchThroughDocument();
     public ArrayList<Document> createSearchList();
     public Document showSearchList();

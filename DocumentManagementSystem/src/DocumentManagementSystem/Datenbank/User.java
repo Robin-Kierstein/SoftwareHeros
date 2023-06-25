@@ -75,7 +75,7 @@ public class User implements UserInterface {
     }
 
     @Override
-    public String docTypeCheckMessage() {
+    public String docTypeCheckMessage(String pfad) {
         return null;
     }
 

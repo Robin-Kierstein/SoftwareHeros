@@ -10,7 +10,7 @@ public interface UserInterface {
     boolean confirmUpload();
     String resultMessage();
 
-    String docTypeCheckMessage();
+    String docTypeCheckMessage(String pfad);
 
     String getSearchInput();
     Document selectSavedDocument();
