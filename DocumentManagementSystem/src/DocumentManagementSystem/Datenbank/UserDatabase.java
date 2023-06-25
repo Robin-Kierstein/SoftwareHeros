@@ -57,8 +57,8 @@ public class UserDatabase {
                 fileReader.close();
             } catch (IOException ioe) {
                 JOptionPane.showMessageDialog(null, ioe.getMessage());
+                return;
             }
-
             if (matched) {
                 JOptionPane.showMessageDialog(null, "Anmeldung erfolgreich");
                 isLoggedIn = true;
@@ -133,7 +133,7 @@ public class UserDatabase {
             FileWriter filewriter = new FileWriter("Login.txt", true);
             filewriter.write(textField1.getText() + "\t" + textField2.getText() + "\n");
             filewriter.close();
-            //Benutzerdaten nochmal und erfolgereiche Registrierung für den User anzeigen
+            //Benutzerdaten nochmal und erfolgreiche Registrierung für den User anzeigen
             JOptionPane.showMessageDialog(null, "Registrierung erfolgreich! \n" + "Benutzername: " + textField1.getText() + "\n" + "Passwort: " + textField2.getText(), "Registrierung erfolgreich", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ioe) {
             JOptionPane.showMessageDialog(null, ioe.getMessage());
