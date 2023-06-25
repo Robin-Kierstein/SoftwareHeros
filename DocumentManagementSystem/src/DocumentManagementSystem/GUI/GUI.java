@@ -6,6 +6,7 @@ import DocumentManagementSystem.DocumentAuthorization.DocumentManagementInterfac
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GUI implements UserInterface, DocumentManagementInterface {
 
@@ -81,8 +82,24 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
     @Override
     public String chooseUploadDocument(String pfad) {
-        return null;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Are you sure you want to upload '" + pfad + "'? (yes/no): ");
+        String confirmation = scanner.nextLine();
+
+        scanner.close();
+
+        String chosenPfad;  // Declare the chosenPfad variable outside the if block
+
+        if (confirmation.equalsIgnoreCase("yes")) {
+            chosenPfad = pfad;  // Save the chosen pfad to the variable
+        } else {
+            chosenPfad = null;  // Reset the chosen pfad
+        }
+
+        return chosenPfad;  // Return the chosenPfad variable
     }
+
 
     @Override
     public boolean confirmUpload() {
