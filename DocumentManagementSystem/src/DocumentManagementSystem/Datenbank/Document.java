@@ -63,7 +63,7 @@ public class Document implements DocumentManagementInterface {
     }
 
     @Override
-    public boolean docTypeCheck() {
+    public boolean docTypeCheck(String pfad) {
         return false;
     }
 

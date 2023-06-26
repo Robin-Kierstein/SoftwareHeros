@@ -3,6 +3,7 @@ package DocumentManagementSystem.GUI;
 import DocumentManagementSystem.Datenbank.Document;
 import DocumentManagementSystem.Datenbank.UserDatabase;
 import DocumentManagementSystem.DocumentAuthorization.DocumentManagementInterface;
+import DocumentManagementSystem.DocumentAuthorization.DocumentManager;
 
 import javax.swing.*;
 import java.io.File;
@@ -19,9 +20,18 @@ public class GUI implements UserInterface, DocumentManagementInterface {
         this.docmanager = docmanager;
     }
 
+    /**
+     * @Author Robin Kierstein
+     * This method opens a menu in a window.
+     * The user can select options by typing in a certain number.
+     * The menu runs until the user wants to leave it or cancels it.
+     */
     @Override
     //TODO: Weitere Menü Auswahlmöglichkeiten hinzufügen
     public void showMenu() {
+        DocumentManager docmanger = new DocumentManager();
+        GUI ui = new GUI(docmanger);
+        String pfad = "";
         int choice = 0;
 
         boolean inputIsValidNumber = false;
@@ -55,8 +65,11 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                                 JOptionPane.showMessageDialog(null,"Bitte erst einloggen!");
                             }else {
                                 //TODO: Upload ausprogrammieren
+                                pfad = JOptionPane.showInputDialog("Bitte Pfad einfügen");
                                 //docmanager.saveUploadDocument("Hier einen Pfad einfügen");
-                                docTypeCheckMessage();
+                                //docTypeCheckMessage();
+                                ui.chooseUploadDocument(pfad);
+                                ui.saveUploadDocument(pfad);
                                 resultMessage();
                                 saveUploadDocument("C:\\Users\\Furka\\Desktop\\abc.txt");
                             }
@@ -88,22 +101,34 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     public String chooseUploadDocument(String pfad) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Are you sure you want to upload '" + pfad + "'? (yes/no): ");
-        String confirmation = scanner.nextLine();
+        String documentName;
 
-        scanner.close();
+        // Ask the user to give a document name.
+        System.out.print("Enter the document name: ");
+        documentName = scanner.nextLine();
 
-        String chosenPfad;  // Declare the chosenPfad variable outside the if block
+        // Save the name that the user has given in a variable.
+        String fileName = documentName ;
 
-        if (confirmation.equalsIgnoreCase("yes")) {
-            chosenPfad = pfad;  // Save the chosen pfad to the variable
+        // Ask if the user is sure if he wants to upload this document.
+        System.out.print("Are you sure you want to upload this document? (yes/no): ");
+        String answer = scanner.nextLine();
+
+        // If the user says yes, save the name.
+        if (answer.equals("yes")) {
+            System.out.println("The document name is " + fileName);
+            return fileName;
         } else {
-            chosenPfad = null;  // Reset the chosen pfad
+            // If the user says no, give the option to go back to step one.
+            System.out.println("Do you want to go back to step one and upload a different file name? (yes/no): ");
+            String choice = scanner.nextLine();
+            if (choice.equals("yes")) {
+                return null;
+            } else {
+                return fileName;
+            }
         }
-
-        return chosenPfad;  // Return the chosenPfad variable
     }
-
 
     @Override
     public boolean confirmUpload() {
@@ -111,9 +136,9 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     }
 
     @Override
-    public String docTypeCheckMessage(){ //Message an User wenn Datei Typ falsch
+    public String docTypeCheckMessage(String pfad){ //Message an User wenn Datei Typ falsch
 
-        if (docmanager.docTypeCheck() == false){
+        if (docmanager.docTypeCheck(pfad) == false){
             JOptionPane.showMessageDialog(null, "Unzulässiger Datei Typ");
         }else{
             JOptionPane.showMessageDialog(null, "Zulässiger Datei Typ");
@@ -185,7 +210,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     }
 
     @Override
-    public boolean docTypeCheck() {
+    public boolean docTypeCheck(String pfad) {
         return false;
     }
 
