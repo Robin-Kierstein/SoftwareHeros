@@ -220,7 +220,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             // Kopiert die Datei
             Files.copy(inputFile.toPath(), outputFile.toPath());
 
-            JOptionPane.showMessageDialog(null, "File saved successfully: " + outputFile.getAbsolutePath());
+            JOptionPane.showMessageDialog(null, "Die Datei wurde erfolgreich hochgeladen: " + outputFile.getAbsolutePath());
             return true;
 
         }
@@ -228,7 +228,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             e.printStackTrace();
         }
 
-        JOptionPane.showMessageDialog(null, "File save failed!");
+        JOptionPane.showMessageDialog(null, "Das hochladen der Datei ist fehlgeschlagen!");
         return false;
     }
 
