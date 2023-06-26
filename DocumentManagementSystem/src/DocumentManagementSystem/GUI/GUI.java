@@ -108,19 +108,19 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     public String chooseUploadDocument(String pfad) {
 
 
-        String fileName = JOptionPane.showInputDialog(null,"Enter the document name",JOptionPane.OK_CANCEL_OPTION);
-        String answer = JOptionPane.showInputDialog(null,"Are you sure you want to upload this document? (yes/no):",JOptionPane.OK_CANCEL_OPTION);
+        String fileName = JOptionPane.showInputDialog(null,"Geben Sie den Dokumentnamen ein",JOptionPane.OK_CANCEL_OPTION);
+        String answer = JOptionPane.showInputDialog(null,"Möchten Sie dieses Dokument wirklich hochladen? (ja Nein):",JOptionPane.OK_CANCEL_OPTION);
 
 
 
         // If the user says yes, save the name.
-        if (answer.equals("yes")) {
-            System.out.println("The document name is " + fileName);
+        if (answer.equals("ja")) {
+            System.out.println("Der Dokumentname lautet " + fileName);
             return fileName;
         } else {
             // If the user says no, give the option to go back to step one.
-            String choice = JOptionPane.showInputDialog(null,"Do you want to go back to step one and upload a different file name? (yes/no):",JOptionPane.OK_CANCEL_OPTION);
-            if (choice.equals("yes")) {
+            String choice = JOptionPane.showInputDialog(null,"Möchten Sie zu Schritt eins zurückkehren und einen anderen Dateinamen hochladen? (ja Nein):",JOptionPane.OK_CANCEL_OPTION);
+            if (choice.equals("ja")) {
                 return null;
             } else {
                 return fileName;
