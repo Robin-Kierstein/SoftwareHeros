@@ -58,6 +58,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                                 //docmanager.saveUploadDocument("Hier einen Pfad einfügen");
                                 docTypeCheckMessage();
                                 resultMessage();
+                                saveUploadDocument("C:\\Users\\Furka\\Desktop\\abc.txt");
                             }
 
                             inputIsNumber = true;
@@ -157,7 +158,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             // Erstellt ein neues File-Objekt an dem gewünschten Pfad
             File outputFile = new File("DocumentManagementSystem/SaveFile");
 
-            // Für den Test erstellen wir eine temporäre "inputFile"
+            // Inputfile ist die Datei die wir speichern möchten
             File inputFile = new File(pfad);
 
             // Wenn die Datei bereits existiert löschen wir sie
