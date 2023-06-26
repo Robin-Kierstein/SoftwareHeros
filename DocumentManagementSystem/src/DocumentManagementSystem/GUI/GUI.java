@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class GUI implements UserInterface, DocumentManagementInterface {
 
@@ -67,10 +66,11 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                                 //TODO: Upload ausprogrammieren
                                 pfad = JOptionPane.showInputDialog("Bitte Pfad einfügen");
                                 //docmanager.saveUploadDocument("Hier einen Pfad einfügen");
-                                //docTypeCheckMessage();
+
                                 ui.chooseUploadDocument(pfad);
+                                ui.docTypeCheckMessage(pfad);
                                 ui.saveUploadDocument(pfad);
-                                resultMessage();
+                                /*ui.resultMessage(pfad);*/
                                 saveUploadDocument("C:\\Users\\Furka\\Desktop\\abc.txt");
                             }
 
@@ -99,20 +99,12 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
     @Override
     public String chooseUploadDocument(String pfad) {
-        Scanner scanner = new Scanner(System.in);
 
-        String documentName;
 
-        // Ask the user to give a document name.
-        System.out.print("Enter the document name: ");
-        documentName = scanner.nextLine();
+        String fileName = JOptionPane.showInputDialog(null,"Enter the document name",JOptionPane.OK_CANCEL_OPTION);
+        String answer = JOptionPane.showInputDialog(null,"Are you sure you want to upload this document? (yes/no):",JOptionPane.OK_CANCEL_OPTION);
 
-        // Save the name that the user has given in a variable.
-        String fileName = documentName ;
 
-        // Ask if the user is sure if he wants to upload this document.
-        System.out.print("Are you sure you want to upload this document? (yes/no): ");
-        String answer = scanner.nextLine();
 
         // If the user says yes, save the name.
         if (answer.equals("yes")) {
@@ -120,8 +112,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             return fileName;
         } else {
             // If the user says no, give the option to go back to step one.
-            System.out.println("Do you want to go back to step one and upload a different file name? (yes/no): ");
-            String choice = scanner.nextLine();
+            String choice = JOptionPane.showInputDialog(null,"Do you want to go back to step one and upload a different file name? (yes/no):",JOptionPane.OK_CANCEL_OPTION);
             if (choice.equals("yes")) {
                 return null;
             } else {
@@ -136,9 +127,34 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     }
 
     @Override
+    public String resultMessage() {
+        return null;
+    }
+
+
+    @Override
+    public boolean docTypeCheck(String pfad){ //Checked ob Datei Typ zulässig
+
+        boolean typecheck;
+
+
+        if (pfad.contains("pdf") ){
+            typecheck = true;
+        }else if (pfad.contains("jpg")){
+            typecheck = true;
+        }else if (pfad.contains("png")){
+            typecheck = true;
+        }else{
+            typecheck = false;
+        }
+
+        return typecheck;
+    }
+
+    @Override
     public String docTypeCheckMessage(String pfad){ //Message an User wenn Datei Typ falsch
 
-        if (docmanager.docTypeCheck(pfad) == false){
+        if (docTypeCheck(pfad) == false){
             JOptionPane.showMessageDialog(null, "Unzulässiger Datei Typ");
         }else{
             JOptionPane.showMessageDialog(null, "Zulässiger Datei Typ");
@@ -147,11 +163,11 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     }
 
     @Override
-    public String resultMessage() { //Message an User ob Upload erfolgreich
+    public String resultMessage(String pfad) { //Message an User ob Upload erfolgreich
 
-        if (docmanager.saveUploadDocument("") != false) {
+        if (docTypeCheck(pfad)!= false) {
             JOptionPane.showMessageDialog(null, "Upload erfolgreich");
-        } else if (docmanager.saveUploadDocument("") == false) {
+        } else if (docTypeCheck(pfad) == false) {
             JOptionPane.showMessageDialog(null, "Upload nicht erfolgreich");
             return null;
         }
@@ -209,10 +225,6 @@ public class GUI implements UserInterface, DocumentManagementInterface {
         return false;
     }
 
-    @Override
-    public boolean docTypeCheck(String pfad) {
-        return false;
-    }
 
     @Override
     public String searchThroughDocument() {

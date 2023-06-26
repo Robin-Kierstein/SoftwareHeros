@@ -18,6 +18,8 @@ public interface UserInterface {
 
     String docTypeCheckMessage(String pfad);
 
+    String resultMessage(String pfad);
+
     String getSearchInput();
     Document selectSavedDocument();
 

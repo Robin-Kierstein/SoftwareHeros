@@ -27,22 +27,8 @@ public class DocumentManager implements DocumentManagementInterface {
     }
 
     @Override
-    public boolean docTypeCheck(String pfad){ //Checked ob Datei Typ zulässig
-
-        boolean typecheck;
-
-
-            if (pfad.contains("pdf") ){
-                typecheck = true;
-            }else if (pfad.contains("jpg")){
-                typecheck = true;
-            }else if (pfad.contains("png")){
-                typecheck = true;
-            }else{
-                typecheck = false;
-            }
-
-        return typecheck;
+    public boolean docTypeCheck(String pfad) {
+        return false;
     }
 
 

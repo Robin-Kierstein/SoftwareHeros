@@ -148,6 +148,11 @@ public class User implements UserInterface {
     }
 
     @Override
+    public String resultMessage(String pfad) {
+        return null;
+    }
+
+    @Override
     public String getSearchInput() {
         return null;
     }
