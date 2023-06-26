@@ -94,22 +94,34 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     public String chooseUploadDocument(String pfad) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Are you sure you want to upload '" + pfad + "'? (yes/no): ");
-        String confirmation = scanner.nextLine();
+        String documentName;
 
-        scanner.close();
+        // Ask the user to give a document name.
+        System.out.print("Enter the document name: ");
+        documentName = scanner.nextLine();
 
-        String chosenPfad;  // Declare the chosenPfad variable outside the if block
+        // Save the name that the user has given in a variable.
+        String fileName = documentName ;
 
-        if (confirmation.equalsIgnoreCase("yes")) {
-            chosenPfad = pfad;  // Save the chosen pfad to the variable
+        // Ask if the user is sure if he wants to upload this document.
+        System.out.print("Are you sure you want to upload this document? (yes/no): ");
+        String answer = scanner.nextLine();
+
+        // If the user says yes, save the name.
+        if (answer.equals("yes")) {
+            System.out.println("The document name is " + fileName);
+            return fileName;
         } else {
-            chosenPfad = null;  // Reset the chosen pfad
+            // If the user says no, give the option to go back to step one.
+            System.out.println("Do you want to go back to step one and upload a different file name? (yes/no): ");
+            String choice = scanner.nextLine();
+            if (choice.equals("yes")) {
+                return null;
+            } else {
+                return fileName;
+            }
         }
-
-        return chosenPfad;  // Return the chosenPfad variable
     }
-
 
     @Override
     public boolean confirmUpload() {
