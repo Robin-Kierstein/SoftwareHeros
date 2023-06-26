@@ -20,9 +20,11 @@ public class DocumentTest {
         GUI ui = new GUI(docmanger);
         String pfad = JOptionPane.showInputDialog("Bitte Pfad einfügen");
 
+        String name = "test2009.pdf";
+
         //prüft die Methode in der GUI
-        assertTrue(ui.saveUploadDocument(pfad));
+        assertTrue(ui.saveUploadDocument(pfad,name));
         //prüft, ob die gespeicherte Datei nun wirklich existiert
-        assertTrue(Files.exists(Paths.get("DocumentManagementSystem/SaveFile")));
+        assertTrue(Files.exists(Paths.get("DocumentManagementSystem/Gespeicherte Dateien/" )));
     }
 }

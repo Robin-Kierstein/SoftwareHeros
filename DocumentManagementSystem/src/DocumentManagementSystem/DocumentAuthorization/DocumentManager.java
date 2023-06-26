@@ -18,7 +18,7 @@ public class DocumentManager implements DocumentManagementInterface {
 
 
     @Override
-    public boolean saveUploadDocument(String pfad) {
+    public boolean saveUploadDocument(String pfad, String name) {
 
         if (pfad == null) {
             return false;

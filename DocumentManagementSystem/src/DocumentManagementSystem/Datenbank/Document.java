@@ -30,11 +30,11 @@ public class Document implements DocumentManagementInterface {
     }
 
     @Override
-    public boolean saveUploadDocument(String pfad) {
+    public boolean saveUploadDocument(String pfad, String name) {
         try {
 
             // Erstellt ein neues File-Objekt an dem gewünschten Pfad
-            File outputFile = new File("DocumentManagementSystem/SaveFile");
+            File outputFile = new File("DocumentManagementSystem/Gespeicherte Dateien/" + name);
 
             // Inputfile ist die Datei die wir speichern möchten
             File inputFile = new File(pfad);

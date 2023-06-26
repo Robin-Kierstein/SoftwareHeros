@@ -100,7 +100,7 @@ public class User implements UserInterface {
                                 //docmanager.saveUploadDocument("Hier einen Pfad einfügen");
                                 //docTypeCheckMessage();
                                 ui.chooseUploadDocument(pfad);
-                                ui.saveUploadDocument(pfad);
+                                ui.saveUploadDocument(pfad, "");
                                 resultMessage();
                             }
 

@@ -65,13 +65,20 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                             }else {
                                 //TODO: Upload ausprogrammieren
                                 pfad = JOptionPane.showInputDialog("Bitte Pfad einfügen");
-                                //docmanager.saveUploadDocument("Hier einen Pfad einfügen");
 
-                                ui.chooseUploadDocument(pfad);
+                                String name = "";
+
+
+                                //docmanager.saveUploadDocument("Hier einen Pfad einfügen");
                                 ui.docTypeCheckMessage(pfad);
-                                ui.saveUploadDocument(pfad);
+                                if (!docTypeCheck(pfad)) {
+                                    break;
+                                }
+
+                                name = ui.chooseUploadDocument(pfad);
+                                ui.saveUploadDocument(pfad,name);
                                 /*ui.resultMessage(pfad);*/
-                                saveUploadDocument("C:\\Users\\Furka\\Desktop\\abc.txt");
+                                //saveUploadDocument(pfad);
                             }
 
                             inputIsNumber = true;
@@ -193,11 +200,11 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     }
 
     @Override
-    public boolean saveUploadDocument(String pfad) {
+    public boolean saveUploadDocument(String pfad, String name) {
         try {
 
             // Erstellt ein neues File-Objekt an dem gewünschten Pfad
-            File outputFile = new File("DocumentManagementSystem/SaveFile");
+            File outputFile = new File("DocumentManagementSystem/Gespeicherte Dateien/" + name);
 
             // Inputfile ist die Datei die wir speichern möchten
             File inputFile = new File(pfad);
