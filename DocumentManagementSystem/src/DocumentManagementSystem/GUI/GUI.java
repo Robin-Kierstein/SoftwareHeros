@@ -220,7 +220,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             // Kopiert die Datei
             Files.copy(inputFile.toPath(), outputFile.toPath());
 
-            System.out.println("File saved successfully: " + outputFile.getAbsolutePath());
+            JOptionPane.showMessageDialog(null, "File saved successfully: " + outputFile.getAbsolutePath());
             return true;
 
         }
@@ -228,7 +228,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             e.printStackTrace();
         }
 
-        System.out.println("File save failed");
+        JOptionPane.showMessageDialog(null, "File save failed!");
         return false;
     }
 

@@ -2,6 +2,7 @@ package DocumentManagementSystem.Datenbank;
 
 import DocumentManagementSystem.DocumentAuthorization.DocumentManagementInterface;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -50,7 +51,7 @@ public class Document implements DocumentManagementInterface {
             // Kopiert die Datei
             Files.copy(inputFile.toPath(), outputFile.toPath());
 
-            System.out.println("File saved successfully: " + outputFile.getAbsolutePath());
+            JOptionPane.showMessageDialog(null, "File saved successfully: " + outputFile.getAbsolutePath());
             return true;
 
         }
@@ -58,7 +59,7 @@ public class Document implements DocumentManagementInterface {
             e.printStackTrace();
         }
 
-        System.out.println("File save failed");
+        JOptionPane.showMessageDialog(null, "File save failed!");
         return false;
     }
 
