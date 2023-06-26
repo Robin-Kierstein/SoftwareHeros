@@ -1,8 +1,11 @@
 package DocumentManagementSystem.Datenbank;
 
 import DocumentManagementSystem.DocumentAuthorization.Authorization;
+import DocumentManagementSystem.DocumentAuthorization.DocumentManager;
+import DocumentManagementSystem.GUI.GUI;
 import DocumentManagementSystem.GUI.UserInterface;
 
+import javax.swing.*;
 import java.util.List;
 
 public class User implements UserInterface {
@@ -48,10 +51,75 @@ public class User implements UserInterface {
         this.authorization = authorization;
     }
 
-
+    /**
+     * @Author Robin Kierstein
+     * This method opens a menu in a window.
+     * The user can select options by typing in a certain number.
+     * The menu runs until the user wants to leave it or cancels it.
+     */
     @Override
+    //TODO: Weitere Menü Auswahlmöglichkeiten hinzufügen
     public void showMenu() {
+        DocumentManager docmanger = new DocumentManager();
+        GUI ui = new GUI(docmanger);
+        String pfad = "";
+        int choice = 0;
 
+        boolean inputIsValidNumber = false;
+        boolean inputIsNumber = false;
+
+        do {
+
+            try {
+
+                do {
+                    String input = JOptionPane.showInputDialog(null,"Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n 4. Menü verlassen","Menü",JOptionPane.OK_CANCEL_OPTION);
+                    //Cancel Option
+                    if (input == null){
+                        return;
+                    }
+                    choice = Integer.parseInt(input);
+
+                    switch (choice) {
+                        case 1:
+                            UserDatabase.register();
+                            inputIsNumber = true;
+                            break;
+
+                        case 2:
+                            UserDatabase.login();
+                            inputIsNumber = true;
+                            break;
+
+                        case 3:
+                            if (!UserDatabase.isLoggedIn()){
+                                JOptionPane.showMessageDialog(null,"Bitte erst einloggen!");
+                            }else {
+                                //TODO: Upload ausprogrammieren
+                                pfad = JOptionPane.showInputDialog("Bitte Pfad einfügen");
+                                //docmanager.saveUploadDocument("Hier einen Pfad einfügen");
+                                //docTypeCheckMessage();
+                                ui.chooseUploadDocument(pfad);
+                                ui.saveUploadDocument(pfad);
+                                resultMessage();
+                            }
+
+                            inputIsNumber = true;
+                            break;
+
+                        case 4:
+                            inputIsValidNumber = true;
+                            inputIsNumber = true;
+                            return;
+
+                        default:
+                            JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 4 eingeben");
+                    }
+                } while (!inputIsValidNumber);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 4 eingeben");
+            }
+        } while (!inputIsNumber);
     }
 
     @Override

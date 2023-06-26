@@ -6,6 +6,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * @Author Robin Kierstein
+ * This class provides methods to register into the system, login to the system, check weather a username already exists
+ * and check if a user is logged in to the system.
+ */
 public class UserDatabase {
     private static boolean isLoggedIn;
 
@@ -14,10 +19,19 @@ public class UserDatabase {
         //login();
     }
 
+    /**
+     * Checks weather a user is logged in to the system
+     * @return true if user is logged in otherwise false
+     */
     public static boolean isLoggedIn() {
         return isLoggedIn;
     }
 
+    /**
+     * This method creates a window for user input.
+     * Users can log into the system by typing in their username and password.
+     * If the username or password is incorrect the user can try again or return to the main menu.
+     */
     public static void login() {
         //Anmelden
         //Textfelder für User Input erstellen
@@ -72,6 +86,11 @@ public class UserDatabase {
         } while (!matched);
     }
 
+    /**
+     * Checks weather the username already exists
+     * @param benutzername username to be checked
+     * @return true if the username already exists otherwise false
+     */
     public static boolean checkForExistingUsers(String benutzername) {
         boolean ausgabe = false;
         try {
@@ -93,6 +112,11 @@ public class UserDatabase {
         return ausgabe;
     }
 
+    /**
+     * This method creates a window for user input.
+     * Users can register into the system by typing in a username and password.
+     * The username needs to be unique.
+     */
     public static void register() {
         //Textfelder für User Input erstellen
         JTextField textField1 = new JTextField();
