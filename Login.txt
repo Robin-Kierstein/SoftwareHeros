@@ -1,5 +1,3 @@
 admin	admin
 test	test
-Sahra	Sahra
-Ahmad	Ahmad
-	
+test2	test2
