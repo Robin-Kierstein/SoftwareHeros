@@ -1,4 +1,6 @@
 package DocumentManagementSystem.Datenbank;
+import DocumentManagementSystem.DocumentAuthorization.ManageAuthorization;
+
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -13,7 +15,7 @@ import java.io.IOException;
  */
 public class UserDatabase {
     private static boolean isLoggedIn;
-
+    private static String loggedInUser = null;
     public static void main(String[] args) {
         //register();
         //login();
@@ -76,6 +78,7 @@ public class UserDatabase {
             if (matched) {
                 JOptionPane.showMessageDialog(null, "Anmeldung erfolgreich");
                 isLoggedIn = true;
+                loggedInUser = username;
             } else {
                 int auswahl = JOptionPane.showConfirmDialog(null, "Anmeldedaten falsch","",JOptionPane.OK_CANCEL_OPTION);
                 if (auswahl == JOptionPane.CANCEL_OPTION){
@@ -163,5 +166,37 @@ public class UserDatabase {
             JOptionPane.showMessageDialog(null, ioe.getMessage());
         }
     }
+    public static boolean hasUploadRights(String username) {
+        return username.equals("admin") || username.equals("test") || username.equals("test2");
+    }
+
+    public static String getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public static User getUserByUsername(String username) {
+        try {
+            FileReader fileReader = new FileReader("Login.txt");
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] array = line.split("\t");
+                if (array[0].equals(username)) {
+                    String storedUsername = array[0];
+                    String storedPassword = array[1];
+                    User user = new User(storedUsername, storedPassword);
+                    bufferedReader.close();
+                    fileReader.close();
+                    return user;
+                }
+            }
+            bufferedReader.close();
+            fileReader.close();
+        } catch (IOException ioe) {
+            JOptionPane.showMessageDialog(null, ioe.getMessage());
+        }
+        return null;
+    }
+
 
 }

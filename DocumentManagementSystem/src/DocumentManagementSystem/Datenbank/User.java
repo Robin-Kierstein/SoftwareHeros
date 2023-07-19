@@ -6,6 +6,7 @@ import DocumentManagementSystem.GUI.GUI;
 import DocumentManagementSystem.GUI.UserInterface;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class User implements UserInterface {
@@ -17,6 +18,7 @@ public class User implements UserInterface {
     public User(String name, String passwort) {
         this.benutzername = name;
         this.passwort = passwort;
+        this.authorization = new ArrayList<>();
     }
 
     public String getBenutzername() {

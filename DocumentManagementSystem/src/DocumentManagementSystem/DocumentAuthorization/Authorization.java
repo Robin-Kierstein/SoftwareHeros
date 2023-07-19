@@ -10,4 +10,6 @@ public abstract class Authorization implements ManageAuthorizationInterface {
     public void setType(String type) {
         this.type = type;
     }
+
+    public abstract String requestUploadRights();
 }

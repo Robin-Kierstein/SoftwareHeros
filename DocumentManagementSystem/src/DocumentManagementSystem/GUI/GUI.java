@@ -1,9 +1,11 @@
 package DocumentManagementSystem.GUI;
 
 import DocumentManagementSystem.Datenbank.Document;
+import DocumentManagementSystem.Datenbank.User;
 import DocumentManagementSystem.Datenbank.UserDatabase;
 import DocumentManagementSystem.DocumentAuthorization.DocumentManagementInterface;
 import DocumentManagementSystem.DocumentAuthorization.DocumentManager;
+import DocumentManagementSystem.DocumentAuthorization.ManageAuthorization;
 
 import javax.swing.*;
 import java.io.File;
@@ -36,7 +38,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             try {
 
                do {
-                    String input = JOptionPane.showInputDialog(null,"Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n 4. Menü verlassen","Menü",JOptionPane.OK_CANCEL_OPTION);
+                    String input = JOptionPane.showInputDialog(null,"Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n 4. Request Upload Rights \n 5. Menü verlassen","Menü",JOptionPane.OK_CANCEL_OPTION);
                         //Cancel Option
                         if (input == null){
                             return;
@@ -58,13 +60,14 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                             if (!UserDatabase.isLoggedIn()){
                                 JOptionPane.showMessageDialog(null,"Bitte erst einloggen!");
                             }else {
-                                //TODO: Upload ausprogrammieren
-                                pfad = JOptionPane.showInputDialog("Bitte Pfad einfügen");
+                                String authorizationResult = ui.requestUploadAuthorization();
+                                if(authorizationResult.equals("Erfolg")) {
+                                    pfad = JOptionPane.showInputDialog("Bitte Pfad einfügen");
 
-                                String name = "";
+                                    String name = "";
 
 
-                                //docmanager.saveUploadDocument("Hier einen Pfad einfügen");
+
                                 ui.docTypeCheckMessage(pfad);
                                 if (!docTypeCheck(pfad)) {
                                     break;
@@ -72,14 +75,45 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
                                 name = ui.chooseUploadDocument(pfad);
                                 ui.saveUploadDocument(pfad,name);
-                                /*ui.resultMessage(pfad);*/
-                                //saveUploadDocument(pfad);
+
+                                } else {
+                                    JOptionPane.showMessageDialog(null, authorizationResult);  // Informiert den Benutzer, dass er keine Berechtigung hat
+                                }
                             }
 
                             inputIsNumber = true;
                             break;
 
                         case 4:
+                            // Überprüfen, ob Benutzer eingeloggt ist
+                            if (!UserDatabase.isLoggedIn()){
+                                JOptionPane.showMessageDialog(null, "Bitte erst einloggen!");
+                            } else {
+                                // Eingabe einer Notiz für den Admin abfragen
+                                String note = JOptionPane.showInputDialog("Bitte Notiz für den Admin eingeben");
+
+                                // Den aktuellen eingeloggten Benutzer abrufen
+                                User loggedInUser = UserDatabase.getUserByUsername(UserDatabase.getLoggedInUser());
+
+                                // Neue Instanz von ManageAuthorization mit dem eingeloggten Benutzer erstellen
+                                ManageAuthorization authorizationManager = new ManageAuthorization(loggedInUser);
+
+                                // Anforderung von Upload-Rechten für den Benutzer stellen
+                                String requestMessage = authorizationManager.requestUploadRights();
+
+                                // Anforderung in die Datei schreiben und Notiz hinzufügen
+                                authorizationManager.writeRequestToFile(requestMessage + ". Notiz: " + note);
+
+                                // Benutzer über erfolgreiche Anforderung informieren
+                                JOptionPane.showMessageDialog(null, "Berechtigungsanforderung gesendet. Bitte warten Sie auf die Genehmigung des Admins.");
+                            }
+
+                            inputIsNumber = true;
+                            break;
+
+
+
+                        case 5:
                             inputIsValidNumber = true;
                             inputIsNumber = true;
                             return;
@@ -94,10 +128,16 @@ public class GUI implements UserInterface, DocumentManagementInterface {
         } while (!inputIsNumber);
     }
 
+
     @Override
     public String requestUploadAuthorization() {
-        return null;
+        if (UserDatabase.hasUploadRights(UserDatabase.getLoggedInUser())) {
+            return "Erfolg";
+        } else {
+            return "Fehler: Sie haben keine Berechtigung zum Hochladen von Dokumenten.";
+        }
     }
+
 
     @Override
     public String chooseUploadDocument(String pfad) {

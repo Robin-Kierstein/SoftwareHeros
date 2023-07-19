@@ -27,4 +27,9 @@ public class WriteAuthorization extends Authorization {
     public String resultAuthorizationMessage() {
         return null;
     }
+
+    @Override
+    public String requestUploadRights() {
+        return null;
+    }
 }
