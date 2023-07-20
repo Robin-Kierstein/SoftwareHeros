@@ -38,7 +38,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             try {
 
                do {
-                    String input = JOptionPane.showInputDialog(null,"Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n 4. Request Upload Rights \n 5. Menü verlassen","Menü",JOptionPane.OK_CANCEL_OPTION);
+                    String input = JOptionPane.showInputDialog(null,"Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n 4. View \n 5. Request Upload Rights \n 6. Menü verlassen","Menü",JOptionPane.OK_CANCEL_OPTION);
                         //Cancel Option
                         if (input == null){
                             return;
@@ -85,6 +85,22 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                             break;
 
                         case 4:
+                            if (!UserDatabase.isLoggedIn()){
+                                JOptionPane.showMessageDialog(null,"Bitte erst einloggen!");
+                            }else {
+                                String authorizationResult = ui.requestUploadAuthorization();
+                                if(authorizationResult.equals("Erfolg")) {
+
+
+                                } else {
+                                    JOptionPane.showMessageDialog(null, authorizationResult);  // Informiert den Benutzer, dass er keine Berechtigung hat
+                                }
+                            }
+
+                            inputIsNumber = true;
+                            break;
+
+                        case 5:
                             // Überprüfen, ob Benutzer eingeloggt ist
                             if (!UserDatabase.isLoggedIn()){
                                 JOptionPane.showMessageDialog(null, "Bitte erst einloggen!");
@@ -113,7 +129,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
 
 
-                        case 5:
+                        case 6:
                             inputIsValidNumber = true;
                             inputIsNumber = true;
                             return;
