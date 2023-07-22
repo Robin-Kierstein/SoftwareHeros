@@ -8,6 +8,7 @@ import DocumentManagementSystem.DocumentAuthorization.DocumentManager;
 import DocumentManagementSystem.DocumentAuthorization.ManageAuthorization;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -90,6 +91,8 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                             }else {
                                 String authorizationResult = ui.requestUploadAuthorization();
                                 if(authorizationResult.equals("Erfolg")) {
+                                    String selecteddocument = JOptionPane.showInputDialog("Bitte Dokumentenname eingeben");
+                                    viewSelecteddDocument(selecteddocument);
 
 
                                 } else {
@@ -140,6 +143,8 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                 } while (!inputIsValidNumber);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 4 eingeben");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         } while (!inputIsNumber);
     }
@@ -246,6 +251,11 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     }
 
     @Override
+    public Document viewSelectedDocument(String selecteddocument) throws IOException {
+        return null;
+    }
+
+    @Override
     public boolean uploadDocument(String pfad) {
         return false;
     }
@@ -281,6 +291,22 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
         JOptionPane.showMessageDialog(null, "Das hochladen der Datei ist fehlgeschlagen!");
         return false;
+    }
+
+    @Override
+    public Document viewSelecteddDocument(String selecteddocument) throws IOException {
+
+
+        File outputFile = new File("DocumentManagementSystem/Gespeicherte Dateien/" + selecteddocument);
+        if (outputFile.exists()) {
+            Desktop desktop = Desktop.getDesktop();
+            desktop.open(outputFile);
+        }else if(!outputFile.exists()){
+            JOptionPane.showMessageDialog(null, "Ein Dokument unter diesem Namen existiert nicht");
+        }
+
+
+        return null;
     }
 
 

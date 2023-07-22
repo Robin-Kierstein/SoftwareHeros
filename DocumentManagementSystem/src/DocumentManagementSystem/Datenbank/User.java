@@ -6,6 +6,7 @@ import DocumentManagementSystem.GUI.GUI;
 import DocumentManagementSystem.GUI.UserInterface;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -156,6 +157,16 @@ public class User implements UserInterface {
 
     @Override
     public Document selectSavedDocument() {
+        return null;
+    }
+
+    @Override
+    public Document viewSelectedDocument(String selecteddocument) {
+        return null;
+    }
+
+    @Override
+    public Document viewSelecteddDocument(String selecteddocument) throws IOException {
         return null;
     }
 }

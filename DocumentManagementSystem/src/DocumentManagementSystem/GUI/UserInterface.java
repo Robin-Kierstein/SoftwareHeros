@@ -2,6 +2,8 @@ package DocumentManagementSystem.GUI;
 
 import DocumentManagementSystem.Datenbank.Document;
 
+import java.io.IOException;
+
 public interface UserInterface {
 
 
@@ -18,4 +20,7 @@ public interface UserInterface {
     String getSearchInput();
     Document selectSavedDocument();
 
+    Document viewSelectedDocument(String selecteddocument) throws IOException;
+
+    Document viewSelecteddDocument(String selecteddocument) throws IOException;
 }
