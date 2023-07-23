@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import DocumentManagementSystem.Datenbank.MetaDate;
 
 public class GUI implements UserInterface, DocumentManagementInterface {
 
@@ -22,7 +23,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
         this.docmanager = docmanager;
     }
 
-   
+
     @Override
     //TODO: Weitere Menü Auswahlmöglichkeiten hinzufügen
     public void showMenu() {
@@ -38,12 +39,12 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
             try {
 
-               do {
-                    String input = JOptionPane.showInputDialog(null,"Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n 4. View \n 5. Request Upload Rights \n 6. Menü verlassen","Menü",JOptionPane.OK_CANCEL_OPTION);
-                        //Cancel Option
-                        if (input == null){
-                            return;
-                        }
+                do {
+                    String input = JOptionPane.showInputDialog(null, "Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n 4. View \n 5. Request Upload Rights \n 6. Menü verlassen", "Menü", JOptionPane.OK_CANCEL_OPTION);
+                    //Cancel Option
+                    if (input == null) {
+                        return;
+                    }
                     choice = Integer.parseInt(input);
 
                     switch (choice) {
@@ -58,24 +59,23 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                             break;
 
                         case 3:
-                            if (!UserDatabase.isLoggedIn()){
-                                JOptionPane.showMessageDialog(null,"Bitte erst einloggen!");
-                            }else {
+                            if (!UserDatabase.isLoggedIn()) {
+                                JOptionPane.showMessageDialog(null, "Bitte erst einloggen!");
+                            } else {
                                 String authorizationResult = ui.requestUploadAuthorization();
-                                if(authorizationResult.equals("Erfolg")) {
+                                if (authorizationResult.equals("Erfolg")) {
                                     pfad = JOptionPane.showInputDialog("Bitte Pfad einfügen");
 
                                     String name = "";
 
 
+                                    ui.docTypeCheckMessage(pfad);
+                                    if (!docTypeCheck(pfad)) {
+                                        break;
+                                    }
 
-                                ui.docTypeCheckMessage(pfad);
-                                if (!docTypeCheck(pfad)) {
-                                    break;
-                                }
-
-                                name = ui.chooseUploadDocument(pfad);
-                                ui.saveUploadDocument(pfad,name);
+                                    name = ui.chooseUploadDocument(pfad);
+                                    ui.saveUploadDocument(pfad, name );
 
                                 } else {
                                     JOptionPane.showMessageDialog(null, authorizationResult);  // Informiert den Benutzer, dass er keine Berechtigung hat
@@ -86,11 +86,11 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                             break;
 
                         case 4:
-                            if (!UserDatabase.isLoggedIn()){
-                                JOptionPane.showMessageDialog(null,"Bitte erst einloggen!");
-                            }else {
+                            if (!UserDatabase.isLoggedIn()) {
+                                JOptionPane.showMessageDialog(null, "Bitte erst einloggen!");
+                            } else {
                                 String authorizationResult = ui.requestUploadAuthorization();
-                                if(authorizationResult.equals("Erfolg")) {
+                                if (authorizationResult.equals("Erfolg")) {
                                     String selecteddocument = JOptionPane.showInputDialog("Bitte Dokumentenname eingeben");
                                     viewSelecteddDocument(selecteddocument);
 
@@ -105,7 +105,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
                         case 5:
                             // Überprüfen, ob Benutzer eingeloggt ist
-                            if (!UserDatabase.isLoggedIn()){
+                            if (!UserDatabase.isLoggedIn()) {
                                 JOptionPane.showMessageDialog(null, "Bitte erst einloggen!");
                             } else {
                                 // Eingabe einer Notiz für den Admin abfragen
@@ -129,7 +129,6 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
                             inputIsNumber = true;
                             break;
-
 
 
                         case 6:
@@ -160,14 +159,11 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     }
 
 
+
     @Override
     public String chooseUploadDocument(String pfad) {
-
-
-        String fileName = JOptionPane.showInputDialog(null,"Geben Sie den Dokumentnamen ein",JOptionPane.OK_CANCEL_OPTION);
-        String answer = JOptionPane.showInputDialog(null,"Möchten Sie dieses Dokument wirklich hochladen? (ja Nein):",JOptionPane.OK_CANCEL_OPTION);
-
-
+        String fileName = JOptionPane.showInputDialog(null, "Geben Sie den Dokumentnamen ein", JOptionPane.OK_CANCEL_OPTION);
+        String answer = JOptionPane.showInputDialog(null, "Möchten Sie dieses Dokument wirklich hochladen? (ja Nein):", JOptionPane.OK_CANCEL_OPTION);
 
         // If the user says yes, save the name.
         if (answer.equals("ja")) {
@@ -175,7 +171,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             return fileName;
         } else {
             // If the user says no, give the option to go back to step one.
-            String choice = JOptionPane.showInputDialog(null,"Möchten Sie zu Schritt eins zurückkehren und einen anderen Dateinamen hochladen? (ja Nein):",JOptionPane.OK_CANCEL_OPTION);
+            String choice = JOptionPane.showInputDialog(null, "Möchten Sie zu Schritt eins zurückkehren und einen anderen Dateinamen hochladen? (ja Nein):", JOptionPane.OK_CANCEL_OPTION);
             if (choice.equals("ja")) {
                 return null;
             } else {
@@ -183,6 +179,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             }
         }
     }
+
 
     @Override
     public boolean confirmUpload() {
@@ -196,18 +193,18 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
 
     @Override
-    public boolean docTypeCheck(String pfad){ //Checked ob Datei Typ zulässig
+    public boolean docTypeCheck(String pfad) { //Checked ob Datei Typ zulässig
 
         boolean typecheck;
 
 
-        if (pfad.contains("pdf") ){
+        if (pfad.contains("pdf")) {
             typecheck = true;
-        }else if (pfad.contains("jpg")){
+        } else if (pfad.contains("jpg")) {
             typecheck = true;
-        }else if (pfad.contains("png")){
+        } else if (pfad.contains("png")) {
             typecheck = true;
-        }else{
+        } else {
             typecheck = false;
         }
 
@@ -215,11 +212,11 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     }
 
     @Override
-    public String docTypeCheckMessage(String pfad){ //Message an User wenn Datei Typ falsch
+    public String docTypeCheckMessage(String pfad) { //Message an User wenn Datei Typ falsch
 
-        if (docTypeCheck(pfad) == false){
+        if (docTypeCheck(pfad) == false) {
             JOptionPane.showMessageDialog(null, "Unzulässiger Datei Typ");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Zulässiger Datei Typ");
         }
         return null;
@@ -228,7 +225,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     @Override
     public String resultMessage(String pfad) { //Message an User ob Upload erfolgreich
 
-        if (docTypeCheck(pfad)!= false) {
+        if (docTypeCheck(pfad) != false) {
             JOptionPane.showMessageDialog(null, "Upload erfolgreich");
         } else if (docTypeCheck(pfad) == false) {
             JOptionPane.showMessageDialog(null, "Upload nicht erfolgreich");
@@ -237,7 +234,6 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
         return null;
     }
-
 
 
     @Override
@@ -261,7 +257,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     }
 
     @Override
-    public boolean saveUploadDocument(String pfad, String name) {
+    public boolean saveUploadDocument(String pfad, String name  ) {
         try {
 
             // Erstellt ein neues File-Objekt an dem gewünschten Pfad
@@ -271,7 +267,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             File inputFile = new File(pfad);
 
             // Wenn die Datei bereits existiert löschen wir sie
-            if(outputFile.exists()){
+            if (outputFile.exists()) {
                 outputFile.delete();
             }
 
@@ -284,8 +280,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             JOptionPane.showMessageDialog(null, "Die Datei wurde erfolgreich hochgeladen: " + outputFile.getAbsolutePath());
             return true;
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -301,7 +296,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
         if (outputFile.exists()) {
             Desktop desktop = Desktop.getDesktop();
             desktop.open(outputFile);
-        }else if(!outputFile.exists()){
+        } else if (!outputFile.exists()) {
             JOptionPane.showMessageDialog(null, "Ein Dokument unter diesem Namen existiert nicht");
         }
 
@@ -339,4 +334,15 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     public String viewMetatagsDocument() {
         return null;
     }
+    private MetaDate fillMetadata() {
+        String text = JOptionPane.showInputDialog("Geben Sie den Metadatentext ein:");
+        int id = Integer.parseInt(JOptionPane.showInputDialog("Geben Sie die Metadaten-ID ein:"));
+        String doctorName = JOptionPane.showInputDialog("Geben Sie den Namen des Arztes ein:");
+        String date = JOptionPane.showInputDialog("Geben Sie das Datum ein:");
+        String prescribedMedications = JOptionPane.showInputDialog("Geben Sie die verschriebenen Medikamente ein:");
+
+        return new MetaDate(text, id, doctorName, date, prescribedMedications);
+    }
+
+
 }

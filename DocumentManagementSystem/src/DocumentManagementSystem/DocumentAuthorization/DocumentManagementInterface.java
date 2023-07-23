@@ -1,6 +1,7 @@
 package DocumentManagementSystem.DocumentAuthorization;
 
 import DocumentManagementSystem.Datenbank.Document;
+import DocumentManagementSystem.Datenbank.MetaDate;
 
 import java.util.ArrayList;
 
