@@ -4,6 +4,7 @@ import DocumentManagementSystem.DocumentAuthorization.DocumentManagementInterfac
 
 import javax.swing.*;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -69,8 +70,24 @@ public class Document implements DocumentManagementInterface {
     }
 
     @Override
-    public String searchThroughDocument() {
-        return null;
+    public void searchDocument(String input) {
+        File folder = new File("DocumentManagementSystem/Gespeicherte Dateien");
+
+        //Ordner zu einer Liste machen, um damit zu arbeiten
+        String[] list = folder.list(new FilenameFilter() {
+            //accept vom FilenameFilter überschreiben, um auf den input zu prüfen
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.contains(input);
+            }
+        });
+        //Dateinamen aus der Liste Reihenweise in den Output schreiben und diesen ausgeben
+        String output = "";
+
+        for (String name : list) {
+            output += name +"\n";
+        }
+        JOptionPane.showMessageDialog(null,output);
     }
 
     @Override
