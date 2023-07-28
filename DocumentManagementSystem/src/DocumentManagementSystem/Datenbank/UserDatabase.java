@@ -90,7 +90,7 @@ public class UserDatabase {
     }
 
     /**
-     * Checks weather the username already exists
+     * Checks if the username already exists
      * @param benutzername username to be checked
      * @return true if the username already exists otherwise false
      */

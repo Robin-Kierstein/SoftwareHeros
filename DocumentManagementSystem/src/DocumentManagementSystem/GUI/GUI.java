@@ -1,6 +1,7 @@
 package DocumentManagementSystem.GUI;
 
 import DocumentManagementSystem.Datenbank.Document;
+import DocumentManagementSystem.Datenbank.MetaDate;
 import DocumentManagementSystem.Datenbank.User;
 import DocumentManagementSystem.Datenbank.UserDatabase;
 import DocumentManagementSystem.DocumentAuthorization.DocumentManagementInterface;
@@ -10,10 +11,10 @@ import DocumentManagementSystem.DocumentAuthorization.ManageAuthorization;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import DocumentManagementSystem.Datenbank.MetaDate;
 
 public class GUI implements UserInterface, DocumentManagementInterface {
 
@@ -40,7 +41,8 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             try {
 
                 do {
-                    String input = JOptionPane.showInputDialog(null, "Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n 4. View \n 5. Request Upload Rights \n 6. Menü verlassen", "Menü", JOptionPane.OK_CANCEL_OPTION);
+                    String input = JOptionPane.showInputDialog(null, "Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n 4. View \n " +
+                            "5. Request Upload Rights \n 6. Dokumente suchen \n 7. Menü verlassen", "Menü", JOptionPane.OK_CANCEL_OPTION);
                     //Cancel Option
                     if (input == null) {
                         return;
@@ -130,18 +132,26 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                             inputIsNumber = true;
                             break;
 
-
                         case 6:
+                            String keyword = JOptionPane.showInputDialog(null,"Wonach soll gesucht werden?","Suche",JOptionPane.OK_CANCEL_OPTION);
+                            //Cancel Option
+                            if (keyword == null) {
+                                break;
+                            }
+                            docmanager.searchDocument(keyword);
+                            break;
+
+                        case 7:
                             inputIsValidNumber = true;
                             inputIsNumber = true;
                             return;
 
                         default:
-                            JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 4 eingeben");
+                            JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 7 eingeben");
                     }
                 } while (!inputIsValidNumber);
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 4 eingeben");
+                JOptionPane.showMessageDialog(null, "Bitte nur Zahlen zwischen 1 und 7 eingeben");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -306,8 +316,24 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
 
     @Override
-    public String searchThroughDocument() {
-        return null;
+    public void searchDocument(String input) {
+        File folder = new File("DocumentManagementSystem/Gespeicherte Dateien");
+
+        //Ordner zu einer Liste machen, um damit zu arbeiten
+        String[] list = folder.list(new FilenameFilter() {
+            //accept vom FilenameFilter überschreiben, um auf den input zu prüfen
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.contains(input);
+            }
+        });
+        //Dateinamen aus der Liste Reihenweise in den Output schreiben und diesen ausgeben
+        String output = "";
+
+        for (String name : list) {
+            output += name +"\n";
+        }
+        JOptionPane.showMessageDialog(null,output);
     }
 
     @Override
@@ -334,14 +360,45 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     public String viewMetatagsDocument() {
         return null;
     }
-    private MetaDate fillMetadata() {
+    public  MetaDate fillMetadata() {
         String text = JOptionPane.showInputDialog("Geben Sie den Metadatentext ein:");
         int id = Integer.parseInt(JOptionPane.showInputDialog("Geben Sie die Metadaten-ID ein:"));
-        String doctorName = JOptionPane.showInputDialog("Geben Sie den Namen des Arztes ein:");
+        String doctorName = JOptionPane.showInputDialog("Geben Sie den Namen des Spieler ein:");
         String date = JOptionPane.showInputDialog("Geben Sie das Datum ein:");
-        String prescribedMedications = JOptionPane.showInputDialog("Geben Sie die verschriebenen Medikamente ein:");
+        String prescribedMedications = JOptionPane.showInputDialog("Geben Sie die verschriebenen Plan ein:");
 
-        return new MetaDate(text, id, doctorName, date, prescribedMedications);
+        boolean allFieldsFilled = true;
+
+        if (text == null || text.isEmpty()) {
+            allFieldsFilled = false;
+            JOptionPane.showMessageDialog(null, "Metadatentext muss ausgefüllt werden.");
+        }
+
+        if (id == 0) {
+            allFieldsFilled = false;
+            JOptionPane.showMessageDialog(null, "Metadaten-ID muss ausgefüllt werden.");
+        }
+
+        if (doctorName == null || doctorName.isEmpty()) {
+            allFieldsFilled = false;
+            JOptionPane.showMessageDialog(null, "Name des Spielers muss ausgefüllt werden.");
+        }
+
+        if (date == null || date.isEmpty()) {
+            allFieldsFilled = false;
+            JOptionPane.showMessageDialog(null, "Datum muss ausgefüllt werden.");
+        }
+
+        if (prescribedMedications == null || prescribedMedications.isEmpty()) {
+            allFieldsFilled = false;
+            JOptionPane.showMessageDialog(null, "Verschriebene Medikamente müssen ausgefüllt werden.");
+        }
+
+        if (allFieldsFilled) {
+            return new MetaDate(text, id, doctorName, date, prescribedMedications);
+        } else {
+            return null;
+        }
     }
 
 

@@ -9,6 +9,5 @@ public class Main {
         GUI ui = new GUI(docmanger);
         ui.showMenu();
 
-
     }
 }

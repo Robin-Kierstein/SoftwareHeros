@@ -1,6 +1,7 @@
 package DocumentManagementSystem;
 
-import org.testng.annotations.Test;
+
+import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 
