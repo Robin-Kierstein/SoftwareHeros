@@ -28,11 +28,12 @@ public class ManageAuthorization extends Authorization implements ManageAuthoriz
     //Methode zum Anfordern von Anzeigerechten
     @Override
     public String requestViewingRights() {
-        this.setType("Viewing");
-        // setzt den Berechtigungsstatus auf false, da die Anzeigerechte angefordert werden
+        this.setType("View");
         authorizationStatus = false;
         user.getAuthorization().add(this);
-        return "Viewing rights requested for user " + user.getBenutzername();
+        String request = "View rights requested for user " + user.getBenutzername();
+        writeRequestToFile(request);
+        return request;
     }
 
     //Methode zum Anzeigen des Anforderungsergebnisses
@@ -55,6 +56,7 @@ public class ManageAuthorization extends Authorization implements ManageAuthoriz
         userAuthorizationStatus.put(user.getBenutzername(), false);
         return false;
     }
+
 
 
     //Methode zum Abrufen der Meldung basierend auf dem Berechtigungsstatus.

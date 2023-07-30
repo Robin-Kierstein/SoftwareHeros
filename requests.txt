@@ -2,7 +2,17 @@ Upload rights requested for user abc
 Upload rights requested for user abc. Notiz: asd
 [2023-07-19 19:27:46] Upload rights requested for user abc
 [2023-07-19 19:27:46] Upload rights requested for user abc. Notiz: Ich brauche Rechte zum Uploaden der Dokumente.
+[2023-07-30 15:05:45] Upload rights requested for user abc
+[2023-07-30 15:05:45] Upload rights requested for user abc. Notiz: Ich möchte Krankenakte xy hochladen
 [2023-07-20 18:07:45] Upload rights requested for user admin
 [2023-07-20 18:07:45] Upload rights requested for user admin. Notiz: test
 [2023-07-23 11:41:41] Upload rights requested for user ahmad
 [2023-07-23 11:41:41] Upload rights requested for user ahmad. Notiz: Bitte lass mich hochladen
+[2023-07-30 16:01:37] View rights requested for user abc
+[2023-07-30 16:01:37] View rights requested for user abc. Notiz: asd
+[2023-07-30 16:03:51] View rights requested for user abc
+[2023-07-30 16:03:51] View rights requested for user abc. Notiz: null
+[2023-07-30 16:04:53] View rights requested for user abc
+[2023-07-30 16:04:53] View rights requested for user abc. Notiz: null
+[2023-07-30 16:10:10] View rights requested for user abc
+[2023-07-30 16:10:10] View rights requested for user abc. Notiz: null

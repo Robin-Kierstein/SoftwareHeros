@@ -19,4 +19,6 @@ public interface DocumentManagementInterface {
     String requestViewingAuthorization();
     Document viewSelectedDocument();
     String viewMetatagsDocument();
+
+    String requestViewingRights();
 }

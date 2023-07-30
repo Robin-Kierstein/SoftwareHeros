@@ -42,7 +42,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
                 do {
                     String input = JOptionPane.showInputDialog(null, "Bitte auswählen: \n 1. Registrieren \n 2. Anmelden\n 3. Upload \n 4. View \n " +
-                            "5. Request Upload Rights \n 6. Dokumente suchen \n 7. Menü verlassen", "Menü", JOptionPane.OK_CANCEL_OPTION);
+                            "5. Request Upload Rights \n 6. Dokumente suchen \n 7. Request Viewing Rights \n 8. Menü verlassen", "Menü", JOptionPane.OK_CANCEL_OPTION);
                     //Cancel Option
                     if (input == null) {
                         return;
@@ -91,7 +91,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                             if (!UserDatabase.isLoggedIn()) {
                                 JOptionPane.showMessageDialog(null, "Bitte erst einloggen!");
                             } else {
-                                String authorizationResult = ui.requestUploadAuthorization();
+                                String authorizationResult = ui.requestViewingAuthorization();
                                 if (authorizationResult.equals("Erfolg")) {
                                     String selecteddocument = JOptionPane.showInputDialog("Bitte Dokumentenname eingeben");
                                     viewSelecteddDocument(selecteddocument);
@@ -142,6 +142,30 @@ public class GUI implements UserInterface, DocumentManagementInterface {
                             break;
 
                         case 7:
+                            if (!UserDatabase.isLoggedIn()) {
+                                JOptionPane.showMessageDialog(null, "Bitte erst einloggen!");
+                            } else {
+                                // Eingabe einer Notiz für den Admin abfragen
+                                String note = JOptionPane.showInputDialog("Bitte Notiz für den Admin eingeben");
+
+                                // Den aktuellen eingeloggten Benutzer abrufen
+                                User loggedInUser = UserDatabase.getUserByUsername(UserDatabase.getLoggedInUser());
+
+                                // Neue Instanz von ManageAuthorization mit dem eingeloggten Benutzer erstellen
+                                ManageAuthorization authorizationManager = new ManageAuthorization(loggedInUser);
+
+                                // Anforderung von Upload-Rechten für den Benutzer stellen
+                                String requestMessage = authorizationManager.requestViewingRights();
+
+                                // Anforderung in die Datei schreiben und Notiz hinzufügen
+                                authorizationManager.writeRequestToFile(requestMessage + ". Notiz: " + note);
+
+                                // Benutzer über erfolgreiche Anforderung informieren
+                                JOptionPane.showMessageDialog(null, "Berechtigungsanforderung gesendet. Bitte warten Sie auf die Genehmigung des Admins.");
+                            }
+                            break;
+
+                        case 8:
                             inputIsValidNumber = true;
                             inputIsNumber = true;
                             return;
@@ -189,6 +213,7 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             }
         }
     }
+
 
 
     @Override
@@ -348,7 +373,11 @@ public class GUI implements UserInterface, DocumentManagementInterface {
 
     @Override
     public String requestViewingAuthorization() {
-        return null;
+        if (UserDatabase.hasUploadRights(UserDatabase.getLoggedInUser())) {
+            return "Erfolg";
+        } else {
+            return "Fehler: Sie haben keine Berechtigung zum Hochladen von Dokumenten.";
+        }
     }
 
     @Override
@@ -360,6 +389,12 @@ public class GUI implements UserInterface, DocumentManagementInterface {
     public String viewMetatagsDocument() {
         return null;
     }
+
+    @Override
+    public String requestViewingRights() {
+        return null;
+    }
+
     public  MetaDate fillMetadata() {
         String text = JOptionPane.showInputDialog("Geben Sie den Metadatentext ein:");
         int id = Integer.parseInt(JOptionPane.showInputDialog("Geben Sie die Metadaten-ID ein:"));
@@ -400,6 +435,4 @@ public class GUI implements UserInterface, DocumentManagementInterface {
             return null;
         }
     }
-
-
 }

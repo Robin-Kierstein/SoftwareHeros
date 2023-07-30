@@ -103,4 +103,9 @@ public class DocumentManager implements DocumentManagementInterface {
     public String viewMetatagsDocument() {
         return null;
     }
+
+    @Override
+    public String requestViewingRights() {
+        return null;
+    }
 }
